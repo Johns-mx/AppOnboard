@@ -24,7 +24,7 @@ const MyTabs = () => {
                 tabBarActiveTintColor: '#8B63FF',
                 tabBarInactiveTintColor: 'gray',
                 headerShown: false,
-                headerTitle: "Anime Royalty",
+                //headerTitle: "Anime Royalty",
                 headerTitleAlign: "right",
                 headerStyle: {
                     backgroundColor: "#280886",
@@ -35,14 +35,14 @@ const MyTabs = () => {
                 tabBarStyle: {
                     position: 'absolute',
                     bottom: 10,
-                    left: 20,
-                    right: 20,
+                    left: 10,
+                    right: 10,
                     paddingTop: 5,
                     paddingBottom: 5,
                     elevation: 0,
-                    borderRadius: 15,
+                    borderRadius: 7,
                     height: 55,
-                    backgroundColor: "#fff",
+                    backgroundColor: "#ffffff",
                     ...styles.sombra
                 },
                 tabBarIcon: ({ focused, color, size }) => {
@@ -66,7 +66,7 @@ const MyTabs = () => {
                 name="HomeScreen" 
                 component={HomeScreen}
                 options={{
-                    title: "HomeScreen"
+                    title: "Dashboard",
                 }}
             />
             

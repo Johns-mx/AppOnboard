@@ -1,74 +1,53 @@
-import { View, Text, StyleSheet, Button, TextInput, SafeAreaView, useWindowDimensions, StatusBar } from "react-native"
+import {
+    View,
+    Text,
+    StyleSheet,
+    Button,
+    TextInput,
+    SafeAreaView,
+    useWindowDimensions,
+    StatusBar,
+    Image,
+} from "react-native"
 import React, { useRef, useState } from "react"
 
 //componentes
-import GradientButton from "../components/GradientButton"
-import InputFieldGeneral from "../components/TextInputField"
-import Background from "../components/Background"
+import GradientButton from "../components/GradientButton";
+import Colors from "../constants/Colors";
+import InputFieldGeneral from "../components/TextInputField";
+import MenuLogin from "../stacks/MenuLogin";
 
 
 const Login = ({ navigation }) => {
-    const { width, height } = useWindowDimensions();
+    const { width, height } = useWindowDimensions()
 
     return (
-        <Background>
-            <StatusBar
-                barStyle="light-content"
-                //backgroundColor="#1b143c"
-                translucent
-            />
+        <SafeAreaView>
+            <StatusBar barStyle="light-content" backgroundColor={Colors.BLUE.doceavo} hidden={false} />
 
-            <View style={{ alignItems: "center", width: width }}>
-                <Text
-                    style={{
-                        color: "#fff",
-                        fontSize: 64,
-                        fontWeight: "bold",
-                        marginVertical: 25,
-                    }}
-                >
-                    Login
-                </Text>
+            <View style={styles.container}>
+                <Image
+                    source={require("../assets/icons/React.png")}
+                    style={{ width: 90, height: 80, ...styles.logoHeader }}
+                />
 
-                <View style={styles.contenido}>
-                    <Text
-                        style={{
-                            paddingTop: 60,
-                            fontSize: 27,
-                            fontWeight: "bold",
-                            color: "#5f0cd4",
-                        }}
-                    >
-                        Welcome back
-                    </Text>
-                    <Text>Login y registro</Text>
-                    <Button
-                        title="LOGIN"
-                        onPress={() => navigation.navigate("Dashboard")}
-                    />
-                </View>
+                <MenuLogin />
             </View>
-        </Background>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 5,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    boton: {
-        bottom: 20,
-    },
-    contenido: {
-        backgroundColor: "#fff",
-        height: 700,
+        backgroundColor: "#1b143c",
+        height: "100%",
         width: "100%",
-        borderTopLeftRadius: 60,
-        borderTopRightRadius: 60,
-        paddingLeft: 10,
-        alignItems: "center",
+        //paddingTop: 40
+        //alignItems: "center",
+    },
+    logoHeader: {
+        alignSelf: "center",
+        marginVertical: 40,
     },
 })
 

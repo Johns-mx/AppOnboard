@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         height: 12,
         width: 12,
         borderRadius: 6,
-        backgroundColor: Colors.secondary,
+        backgroundColor: Colors.BLUE.cuarto,
         marginHorizontal: 5,
     },
 });

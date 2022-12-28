@@ -30,11 +30,12 @@ export const InputFieldGeneral = props => {
 
 export const InputLogin = props => {
     return (
-        <TextInput
-            style={{ borderRadius: 100, color: "#fff", padddingHorizontal: 10, width: "80%", backgroundColor: "#f2f2f2", marginVertical: 10, height: 30 }}
-            placeholder={props.placeholder}
-        >
-        </TextInput>
+        <View style={styles.container2}>
+            <TextInput
+                style={styles.inputStyle2}
+                placeholder={props.placeholder}
+            />
+        </View>
     )
 }
 
@@ -50,6 +51,10 @@ const styles = StyleSheet.create({
         marginBottom: 25,
         paddingLeft: 20,
         width: "90%",
+    },
+    container2: {
+        width: "95%",
+        //alignItems: "center"
     },
     input: {
         paddingHorizontal: 10,
@@ -67,5 +72,14 @@ const styles = StyleSheet.create({
         padding: 9,
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
-    }
+    },
+    inputStyle2: {
+        color: "#222222", 
+        borderRadius: 50, 
+        paddingHorizontal: 15, 
+        paddingVertical: 10, 
+        width: "90%", 
+        backgroundColor: "#f2f2f2", 
+        height: 50,
+    },
 });
