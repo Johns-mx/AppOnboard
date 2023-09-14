@@ -1,12 +1,19 @@
 import { View, Text, Button, SafeAreaView, StyleSheet, TouchableOpacity, useWindowDimensions, TextInput } from "react-native";
-import React from "react"
+import React, { useState } from "react"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { InputFieldGeneral, InputLogin } from "../components/TextInputField"
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons"
+import Colors from "../constants/Colors";
 
 
 const RegisterScreen = ({ navigation }) => {
     const { width, height } = useWindowDimensions();
+
+    const [nombre, setNombre] = useState(String);
+    const [username, setUsername] = useState(String);
+    const [email, setEmail] = useState(String);
+    const [password, setPassword] = useState(String);
+    const [telefono, setTelefono] = useState(String);
 
     return (
         <SafeAreaView>
@@ -17,26 +24,129 @@ const RegisterScreen = ({ navigation }) => {
                     <Text style={styles.txtSubheader}>Create your own account</Text>
                 </View>
 
-                <TextInput placeholder="Nombre completo" style={styles.txtInput} />
-
-                <View style={{ marginBottom: 10, ...styles.inputContainer }}>
-                    <FontAwesome name="user" size={20} color="grey" style={styles.iconStyle} />
-                    <InputLogin placeholder="Username" />
+                {/* NOMBRE COMPLETO */}
+                <View 
+                    style={{ 
+                        marginHorizontal: 16,
+                        flexDirection: "row", 
+                        alignSelf: "center",
+                    }}
+                >
+                    <FontAwesome5 name="user" size={20} color="grey" style={styles.iconStyle} />
+                    <TextInput
+                        style={{
+                            marginVertical: 5,
+                            borderRadius: 10, 
+                            paddingLeft: 20, 
+                            width: "80%", 
+                            height: 40, 
+                            backgroundColor: Colors.primary 
+                        }} 
+                        placeholder='Nombre completo'
+                        value={nombre}
+                        keyboardType="default"
+                        onChangeText={nombre => setNombre(nombre)}
+                    />
                 </View>
 
-                <View style={{ marginBottom: 12, ...styles.inputContainer }}>
+                {/* USERNAME */}
+                <View 
+                    style={{ 
+                        marginHorizontal: 16,
+                        flexDirection: "row", 
+                        alignSelf: "center",
+                    }}
+                >
                     <FontAwesome5 name="user-circle" size={20} color="grey" style={styles.iconStyle} />
-                    <InputLogin placeholder="Email" />
+                    <TextInput
+                        style={{
+                            marginVertical: 5,
+                            borderRadius: 10, 
+                            paddingLeft: 20, 
+                            width: "80%", 
+                            height: 40, 
+                            backgroundColor: Colors.primary 
+                        }} 
+                        placeholder='Username'
+                        value={username}
+                        keyboardType="default"
+                        onChangeText={username => setUsername(username)}
+                    />
                 </View>
 
-                <View style={{ marginBottom: 12, ...styles.inputContainer }}>
+                {/* EMAIL */}
+                <View 
+                    style={{ 
+                        marginHorizontal: 16,
+                        flexDirection: "row", 
+                        alignSelf: "center",
+                    }}
+                >
+                    <FontAwesome5 name="user" size={20} color="grey" style={styles.iconStyle} />
+                    <TextInput
+                        style={{
+                            marginVertical: 5,
+                            borderRadius: 10, 
+                            paddingLeft: 20, 
+                            width: "80%", 
+                            height: 40, 
+                            backgroundColor: Colors.primary 
+                        }} 
+                        placeholder='Correo electronico'
+                        value={email}
+                        keyboardType="default"
+                        onChangeText={email => setEmail(email)}
+                    />
+                </View>
+
+                {/* PASSWORD */}
+                <View 
+                    style={{ 
+                        marginHorizontal: 16,
+                        flexDirection: "row", 
+                        alignSelf: "center",
+                    }}
+                >
                     <FontAwesome5 name="key" size={20} color="grey" style={styles.iconStyle} />
-                    <InputLogin placeholder="Password" />
+                    <TextInput
+                        style={{
+                            marginVertical: 5,
+                            borderRadius: 10, 
+                            paddingLeft: 20, 
+                            width: "80%", 
+                            height: 40, 
+                            backgroundColor: Colors.primary 
+                        }} 
+                        placeholder='Contraseña'
+                        value={password}
+                        keyboardType="default"
+                        onChangeText={password => setPassword(password)}
+                    />
                 </View>
 
-                <View style={{ marginBottom: 12, ...styles.inputContainer }}>
-                    <FontAwesome name="phone" size={25} color="grey" style={styles.iconStyle} />
-                    <InputLogin placeholder="Telefono" />
+                {/* TELEFONO */}
+                <View 
+                    style={{ 
+                        marginHorizontal: 16,
+                        flexDirection: "row", 
+                        alignSelf: "center",
+                    }}
+                >
+                    <FontAwesome5 name="phone" size={20} color="grey" style={styles.iconStyle} />
+                    <TextInput
+                        style={{
+                            marginVertical: 5, 
+                            borderRadius: 10, 
+                            paddingLeft: 20, 
+                            width: "80%", 
+                            height: 40, 
+                            backgroundColor: Colors.primary 
+                        }} 
+                        placeholder='Telefono'
+                        value={telefono}
+                        keyboardType="default"
+                        onChangeText={telefono => setTelefono(telefono)}
+                    />
                 </View>
 
                 <View style={{ alignItems: "center", marginTop: 20 }}>
@@ -53,6 +163,7 @@ const RegisterScreen = ({ navigation }) => {
     );
 }
 
+
 const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: "row",
@@ -61,8 +172,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 10        
     },
     iconStyle: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         alignSelf: "center",
+        width: "15%"
     },
     button: {
         alignItems: "center",

@@ -32,9 +32,9 @@ const MyStacks = () => {
                     title: "",
                     headerShown: true,
                     headerTransparent: true,
+                    //gestureEnabled: false
                 }}
             />
-            
             <Stack.Screen 
                 name="UserSettings" 
                 component={UserSettings} 

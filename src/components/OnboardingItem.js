@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, useWindowDimensions
  } from 'react-native';
 import React from 'react';
 
-export default OnboardingItem = ({ item }) => {
+export default function OnboardingItem({ item }) {
     const { width, height } = useWindowDimensions();
 
     return (

@@ -1,10 +1,12 @@
-import { View, Text, Button, SafeAreaView, StyleSheet, TouchableOpacity, useWindowDimensions, TextInput } from "react-native";
+import { View, Text, Button, ToastAndroid ,SafeAreaView, StyleSheet, TouchableOpacity, useWindowDimensions, TextInput, TouchableHighlight, Alert, } from "react-native";
 import React, { useEffect, useState } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { InputFieldGeneral, InputLogin } from "../components/TextInputField";
+//import CheckBox from '@expo';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { qGetSections, qYPWSections } from "../config/Queries";
+import { qGetSections, qYPWSections } from "../config/Apis/Queries";
+import axios from "axios"
+import { APIError, dataLogin } from "../config/Apis/MethodsApi";
 import Colors from "../constants/Colors";
+import { showMessage } from "react-native-flash-message";
 
 
 const LoginScreen = ({ navigation }) => {
@@ -12,30 +14,74 @@ const LoginScreen = ({ navigation }) => {
 
     const [username, setUsername] = useState(String);
     const [password, setPassword] = useState(String);
+    //const [isSelected, setSelection] = useState(false);
 
-    const handleLogin = () => {
-        qYPWSections(username, password);
+    //Funcion para LOGIN
+    async function qYPWLogin(username, password, appConnect) {
+        const axios = require('axios').default;
+        
+        const config = {
+            method: 'POST',
+            url: "https://account.ypw.com.do/api/v1/account/login", 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                username: username,
+                password: password,
+                appConnect: appConnect
+            }
+        };
+        
+        try {
+            const response = await axios(config)
+    
+            if (response.status === 200) {
+                //const keyUser = response.data.res;
+                await dataLogin(response.data.res.keyUser);
+                navigation.replace("Dashboard");
+            }
+    
+        } catch (error) {
+            const err = await APIError(error);
+            showToastAlert(err);
+        }
+    };
+
+    // Handle event from login button
+    async function handleLogin() {
+        await qYPWLogin(username, password, "AppOnboard");
+    }
+
+    function showToastAlert(message) {
+        ToastAndroid.show(message, ToastAndroid.SHORT);
     }
 
     return (
         <SafeAreaView>
-            <View style={{ backgroundColor: "#ffffff", height: height }}>
+            <View style={{ backgroundColor: Colors.general, height: height, alignItems: "center", }}>
 
-                <View style={{ marginBottom: 40 }}>
+                <View style={{ marginBottom: 50 }}>
                     <Text style={styles.txtHeader}>Welcome Back</Text>
                     <Text style={styles.txtSubheader}>Sign In to your account</Text>
                 </View>
 
-                <View style={{ alignContent: "center" }}>
+                <View style={{ alignContent: "center", marginVertical: 20 }}>
                     <View style={{ 
-                        marginBottom: 10,
+                        marginHorizontal: 16,
                         flexDirection: "row", 
-                        width: "90%", 
                         alignSelf: "center",
                     }}>
                         <FontAwesome5 name="user-circle" size={20} color="grey" style={styles.iconStyle} />
                         <TextInput
-                            style={{marginVertical: 10, borderRadius: 20, paddingLeft: 20, width: "70%", height: 40, backgroundColor: Colors.primary }}
+                            style={{
+                                marginVertical: 5, 
+                                borderRadius: 10, 
+                                paddingLeft: 20, 
+                                width: "80%", 
+                                height: 40, 
+                                backgroundColor: Colors.primary 
+                            }} 
                             placeholder="Email, username" 
                             value={username} 
                             keyboardType="default" 
@@ -44,14 +90,20 @@ const LoginScreen = ({ navigation }) => {
                     </View>
 
                     <View style={{ 
-                        marginBottom: 10,
+                        marginHorizontal: 16,
                         flexDirection: "row", 
-                        width: "90%", 
                         alignSelf: "center",
                     }}>
                         <FontAwesome5 name="key" size={20} color="grey" style={styles.iconStyle} />
                         <TextInput
-                            style={{marginVertical: 10, borderRadius: 20, paddingLeft: 20, width: "70%", height: 40, backgroundColor: Colors.primary }} 
+                            style={{
+                                marginVertical: 10, 
+                                borderRadius: 10, 
+                                paddingLeft: 20, 
+                                width: "80%", 
+                                height: 40, 
+                                backgroundColor: Colors.primary 
+                            }} 
                             placeholder='Password'
                             value={password}
                             keyboardType="default"
@@ -59,10 +111,33 @@ const LoginScreen = ({ navigation }) => {
                         />
                     </View>
 
-                    <View style={{ alignItems: "center" }}>
+                    <Text 
+                        style={{
+                            textAlign: "right", 
+                            fontWeight: "300", 
+                            color: Colors.WHITE.decimo,
+                            fontSize: 12,
+                            marginRight: 16,
+                            textDecorationLine: "underline"
+                        }}
+                        onPress={() => {}}
+                    >Has olvidado tu contraseña?</Text>
+
+                    {/*<View style={{}}>
+                        <CheckBox
+                            value={isSelected}
+                            onValueChange={setSelection}
+                            style={{ backgroundColor: "#fff", fontWeight: "300" }}
+                            title="Recordar contraseña"
+                        />
+                        <Text style={{}}>Do you like React Native?</Text>
+                    </View>
+                    <Text>Is CheckBox selected: {isSelected ? "👍" : "👎"}</Text>*/}
+
+                    <View style={{ alignItems: "center", marginTop: 50, }}>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => navigation.navigate("Dashboard")}
+                            onPress={() => handleLogin()}
                         >
                             <Text style={{ color: "#fff", fontWeight: "bold", }}>LOGIN</Text>
                         </TouchableOpacity>
@@ -77,8 +152,9 @@ const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     iconStyle: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         alignSelf: "center",
+        width: "15%"
     },
     button: {
         alignItems: "center",

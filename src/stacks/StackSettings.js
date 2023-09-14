@@ -41,11 +41,14 @@ const StackSettings = () => {
                 component={EditPerfilScreen} 
                 options={{
                     title: "Personalizar perfil",
-                    headerTransparent: true,
+                    //headerTransparent: true,
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 16
                     },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    }
                 }}
             />
             <Stack.Screen 
@@ -53,11 +56,14 @@ const StackSettings = () => {
                 component={MembresiaScreen} 
                 options={{
                     title: "Membresia",
-                    headerTransparent: true,
+                    //headerTransparent: true,
                     headerTitleAlign: "center",
                     headerTitleStyle: {
-                        fontSize: 16
+                        fontSize: 16,
                     },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    }
                 }}
             />
             <Stack.Screen 
@@ -65,11 +71,14 @@ const StackSettings = () => {
                 component={Notificaciones} 
                 options={{
                     title: "Todas las notificaciones",
-                    headerTransparent: true,
+                    //headerTransparent: true,
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 16
                     },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    }
                 }}
             />
             <Stack.Group name="Grupo1">
@@ -86,6 +95,9 @@ const StackSettings = () => {
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
                 <Stack.Screen 
@@ -93,11 +105,14 @@ const StackSettings = () => {
                     component={AccesibilidadScreen} 
                     options={{
                         title: "Accesibilidad",
-                        headerTransparent: true,
+                        //headerTransparent: true,
                         headerTitleAlign: "center",
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
                 <Stack.Screen 
@@ -105,11 +120,14 @@ const StackSettings = () => {
                     component={NotificacionesScreen} 
                     options={{
                         title: "Notificaciones y Sonidos",
-                        headerTransparent: true,
+                        //headerTransparent: true,
                         headerTitleAlign: "center",
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
                 <Stack.Screen 
@@ -117,11 +135,14 @@ const StackSettings = () => {
                     component={PrivacidadScreen} 
                     options={{
                         title: "Privacidad y Seguridad",
-                        headerTransparent: true,
+                        //headerTransparent: true,
                         headerTitleAlign: "center",
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
                 <Stack.Screen 
@@ -129,11 +150,14 @@ const StackSettings = () => {
                     component={AparienciaScreen} 
                     options={{
                         title: "Apariencia",
-                        headerTransparent: true,
+                        //headerTransparent: true,
                         headerTitleAlign: "center",
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
                 <Stack.Screen 
@@ -141,11 +165,14 @@ const StackSettings = () => {
                     component={StorageScreen} 
                     options={{
                         title: "Datos y Almacenamiento",
-                        headerTransparent: true,
+                        //headerTransparent: true,
                         headerTitleAlign: "center",
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
                 <Stack.Screen 
@@ -153,11 +180,14 @@ const StackSettings = () => {
                     component={HelpScreen} 
                     options={{
                         title: "Ayuda y Comentarios",
-                        headerTransparent: true,
+                        //headerTransparent: true,
                         headerTitleAlign: "center",
                         headerTitleStyle: {
                             fontSize: 16
                         },
+                        headerStyle: {
+                            backgroundColor: Colors.secondary,
+                        }
                     }}
                 />
             </Stack.Group>

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Button, StyleSheet, StatusBar, useWindowDimensions, Alert, ScrollView, Image, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { qYPWLogin } from "../config/Queries";
+import { qYPWLogin } from "../config/Apis/Queries";
 
 //componentes
 import GradientButton from "../components/GradientButton";
@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
             </SafeAreaView>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
                 <View style={styles.content}>
                     <View style={{ marginTop: 15, marginBottom: 10, marginLeft: 20,}}>
                         <Text style={{fontSize: 30, fontWeight: "700",}}>Let's Started!</Text>

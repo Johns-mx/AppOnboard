@@ -6,16 +6,16 @@ import { NavigationContainer } from '@react-navigation/native';
 
 //screens
 import Onboarding from './src/components/Onboarding';
-import MyStacks from './src/stacks/StackNavigation'
+import MyStacks from './src/stacks/StackNavigation';
 
 
 //aqui se inicializan todas los componentes
 export default function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar 
+      <StatusBar
         barStyle="light-content"
-        translucent 
+        translucent
       />
       <NavigationContainer>
         <MyStacks />
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   footer: {
-    fontWeight: "normal", 
-    marginBottom: 7, 
+    fontWeight: "normal",
+    marginBottom: 7,
     fontStyle: "italic",
     color: "#211647",
   },

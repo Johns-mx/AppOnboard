@@ -6,17 +6,52 @@ import Svg, { Path } from "react-native-svg"
 // >> Imports locales
 import { WIDTH_WINDOW, HEIGHT_WINDOW } from "../../constants/Utils";
 import RenderSettingsB, { RenderSettingsFlat } from "../../components/RenderSettings";
+import { dataLogout, APIError, getItemData } from "../../config/Apis/MethodsApi";
 import ListOptions from "../../constants/ListOptions";
 import Colors from "../../constants/Colors";
 
 
 const UserSettings = ({ navigation, route }) => {
 
+    // DATOS NECESARIOS PARA REALIZAR EL LOGOUT
+    const [keyUser, setKeyUser] = useState(String);
+    const [appConnect, setAppConnect] = useState(String);
+
     // fadeAnim will be used as the value for opacity. Initial Value: 0
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const [scrollPosition, setScrollPosition] = useState(0);
     const [middleHeight, setMiddleHeight] = useState(0);
     const scrollViewRef = useRef(null);
+
+    //Funcion para LOGIN
+    async function qYPWLogout(keyUser, appConnect) {
+        const axios = require('axios').default;
+
+        const config = {
+            method: 'POST',
+            url: "https://account.ypw.com.do/api/v1/account/logout", 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                keyUser: keyUser,
+                appConnect: appConnect,
+            }
+        };
+        
+        try {
+            const response = await axios(config)
+    
+            if (response.status === 200) {
+                //const keyUser = response.data.res;
+                navigation.replace("Login");
+            }
+    
+        } catch (error) {
+            await APIError(error);
+        }
+    };
+
 
     useEffect(() => {
         // Codigo que se ejecuta solo cuando entre a la screen (si no tiene los corchete)
@@ -50,11 +85,11 @@ const UserSettings = ({ navigation, route }) => {
         }*/
         setMiddleHeight(height * 0.04);
     }
-
-    //funcion para agarrar el evento al pulsar una categoria
-    const handlePress = (id, title) => {
-        Alert.alert(title, "Klk")
-        //...consultamos los productos por categoria
+    
+    async function handleBtnLogout() {
+        const keyUser = await getItemData("keyUser");
+        await qYPWLogout(keyUser, "AppOnboard");
+        //console.log("Ha salido de la sesion.", keyUser);
     }
 
     return (
@@ -154,14 +189,6 @@ const UserSettings = ({ navigation, route }) => {
                 </View>
                 <View style={styles.scrollViewContent}>
                     <Text style={{ fontSize: 12, fontWeight: "700", color: Colors.BLUE.octavo, marginHorizontal: 16, marginTop: 35, marginBottom: 10, alignSelf: "flex-start" }}>CONFIGURACION</Text>
-                    {/*<TouchableOpacity 
-                        style={{ 
-                            justifyContent: "center", alignItems: "center", alignSelf: "center", width: "91%", height: 35, borderRadius: 6, backgroundColor: Colors.BLUE.octavo,
-                        }}
-                        onPress={() => navigation.push("Settings", {screen: "Language"})}
-                    >
-                        <Text style={{ fontSize: 14, fontWeight: "500", color: Colors.WHITE.primero }}>Language</Text>
-                    </TouchableOpacity>*/}
 
                     {/* Aqui va todo el codigo siguiente */}
                     <View>
@@ -204,7 +231,7 @@ const UserSettings = ({ navigation, route }) => {
                                 style={{ 
                                     justifyContent: "center", alignSelf: "center", width: "91%", height: 35, borderRadius: 6, backgroundColor: Colors.WHITE.octavo
                                 }}
-                                onPress={() => {}}
+                                onPress={() => handleBtnLogout()}
                             >
                                 <View style={{flexDirection: "row", alignItems: "center"}}>
                                     <FontAwesome

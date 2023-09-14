@@ -18,7 +18,7 @@ const Splash = ({ navigation }) => {
                 backgroundColor="#8B63FF" 
             />
             <Image source={require('../assets/icons/React.png')} style={{ width: 50, height: 50 }} />
-            <Text style={{ fontSize: 30, color: "#ffffff", fontWeight: 'bold' }}>AppOnboard</Text>
+            <Text style={{ fontSize: 30, color: "#ffffff", fontWeight: 'bold' }}>Anime Royalty</Text>
         </View>
     )
 }

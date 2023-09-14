@@ -1,0 +1,8 @@
+{
+    "jshint.options": {
+        "esversion": 6
+    },
+    "jshint.enable": false,
+    "prettier.tabWidth": 4,
+    "prettier.useTabs": false
+}
