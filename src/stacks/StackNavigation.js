@@ -29,7 +29,7 @@ const MyStacks = () => {
                 name="Details" 
                 component={DetailsScreen} 
                 options={{
-                    title: "",
+                    title: "Klk",
                     headerShown: true,
                     headerTransparent: true,
                     //gestureEnabled: false

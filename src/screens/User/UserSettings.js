@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, useWindowDimensions, ScrollView, Image, TextInput, SafeAreaView, TouchableOpacity, StatusBar, Button, Animated, Alert, FlatList } from "react-native";
-import { MaterialCommunityIcons, Ionicons, AntDesign, FontAwesome5, FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons, FontAwesome } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg"
 
 // >> Imports locales
@@ -62,7 +62,7 @@ const UserSettings = ({ navigation, route }) => {
         // Will change fadeAnim value in -3 seconds
         Animated.timing(fadeAnim, {
             toValue: 1,
-            duration: 100,
+            duration: 400,
             useNativeDriver: false
         }).start();
     };
@@ -109,7 +109,7 @@ const UserSettings = ({ navigation, route }) => {
                                 size={27}
                                 color={Colors.WHITE.decimo}
                                 style={styles.backBtn}
-                                onPress={() => navigation.goBack()}
+                                onPress={() => navigation.push("HomeScreen")}
                             />
                         </View>
                         <View style={{ width: "70%" }}>

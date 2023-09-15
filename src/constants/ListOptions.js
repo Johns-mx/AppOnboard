@@ -48,7 +48,7 @@ export default [
     {
         id: 7,
         title: "Ayuda y Comentarios",
-        data: ["Info de la app,", "  Politicas"],
+        data: ["Info de la app,", "  Politicas y condiciones de uso"],
         icon: <MaterialCommunityIcons name="help-circle" size={25} color={Colors.WHITE.onceavo} />,
         screenName: "Help"
     },
