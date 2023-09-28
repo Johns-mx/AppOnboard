@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { UserProvider } from './src/config/UserContext';
 
 //screens
 import Onboarding from './src/components/Onboarding';
@@ -12,15 +13,17 @@ import MyStacks from './src/stacks/StackNavigation';
 //aqui se inicializan todas los componentes
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-      />
-      <NavigationContainer>
-        <MyStacks />
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <UserProvider>
+      <SafeAreaProvider>
+        <StatusBar
+          barStyle="light-content"
+          translucent
+        />
+        <NavigationContainer>
+          <MyStacks />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </UserProvider>
   );
 }
 

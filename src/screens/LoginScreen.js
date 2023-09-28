@@ -1,16 +1,20 @@
-import { View, Text, Button, ToastAndroid ,SafeAreaView, StyleSheet, TouchableOpacity, useWindowDimensions, TextInput, TouchableHighlight, Alert, } from "react-native";
+import { View, Text, Button, ToastAndroid ,SafeAreaView, StyleSheet, TouchableOpacity, useWindowDimensions, TextInput, TouchableHighlight, Alert, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 //import CheckBox from '@expo';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { qGetSections, qYPWSections } from "../config/Apis/Queries";
 import axios from "axios"
-import { APIError, dataLogin } from "../config/Apis/MethodsApi";
+import { APIError, dataLogin, getItemData} from "../config/Apis/MethodsApi";
 import Colors from "../constants/Colors";
 import { showMessage } from "react-native-flash-message";
+import { useUser } from "../config/UserContext";
 
 
 const LoginScreen = ({ navigation }) => {
     const { width, height } = useWindowDimensions();
+
+    // USO DE USERCONTEXT PARA ALMACENAR LOS DATOS DEL USUARIO.
+    const { setUserData } = useUser();
 
     const [username, setUsername] = useState(String);
     const [password, setPassword] = useState(String);
@@ -37,9 +41,43 @@ const LoginScreen = ({ navigation }) => {
             const response = await axios(config)
     
             if (response.status === 200) {
-                //const keyUser = response.data.res;
-                await dataLogin(response.data.res.keyUser);
+                const keyUser= response.data.res.keyUser;
+                const dataUser= await qYPWGetUser(keyUser)
+                
+                // Almacena los datos en el contexto
+                setUserData(dataUser);
+                await dataLogin(keyUser);
+
                 navigation.replace("Dashboard");
+            }
+    
+        } catch (error) {
+            const err = await APIError(error);
+            showToastAlert(err);
+        }
+    };
+
+    async function qYPWGetUser(keyUser) {
+        const axios = require('axios').default;
+        
+        const config = {
+            method: 'POST',
+            url: "https://account.ypw.com.do/api/v1/account/getUser", 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                appConnect: "AppOnboard",
+                keyUser: keyUser
+            }
+        };
+        
+        try {
+            const response = await axios(config)
+    
+            if (response.status === 200) {
+                const res = response.data.res;
+                return res;
             }
     
         } catch (error) {

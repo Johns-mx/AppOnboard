@@ -37,19 +37,20 @@ const Categories = [
 
 //categorias render
 const RenderCategorias = () => {
-    const [activeCategoryId, setActiveCategoryId] = useState(null)
+    const [activeCategoryId, setActiveCategoryId] = useState(Number)
 
     //funcion para agarrar el evento al pulsar una categoria
     const handlePress = (id, name, img) => {
         setActiveCategoryId(id)
         Alert.alert(name, img)
-        //...consultamos los productos por categoria
+        //...consultamos los productos por la categoria seleccionada.
     }
-
+    
     return (
         <FlatList
             horizontal={true}
             showsHorizontalScrollIndicator={false}
+            style={{ paddingHorizontal: 10 }}
             data={Categories}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (

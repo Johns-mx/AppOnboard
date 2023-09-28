@@ -13,7 +13,11 @@ import MyTabs from "./BottomNavigation";
 import MenuLogin from "./MenuLogin";
 import UserSettings from "../screens/User/UserSettings";
 import StackSettings from "./StackSettings";
+import ProductDetailScreen from "../screens/ProductDetailScreen";
+import CheckoutScreen from "../screens/CheckoutScreen";
 
+//otros
+import Colors from "../constants/Colors";
 
 //navegacion STACKS
 const Stack = createNativeStackNavigator()
@@ -29,7 +33,7 @@ const MyStacks = () => {
                 name="Details" 
                 component={DetailsScreen} 
                 options={{
-                    title: "Klk",
+                    title: "",
                     headerShown: true,
                     headerTransparent: true,
                     //gestureEnabled: false
@@ -45,6 +49,38 @@ const MyStacks = () => {
                     headerShadowVisible: false,
                     headerTintColor: "#ffffff",
                     //headerSearchBarOptions: true,
+                }}
+            />
+            <Stack.Screen 
+                name="ProductDetail"
+                component={ProductDetailScreen}
+                options={{
+                    title: "Product Details",
+                    headerShown: true,
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 16
+                    },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    },
+                    headerShadowVisible: true
+                }}
+            />
+            <Stack.Screen 
+                name="Checkout"
+                component={CheckoutScreen}
+                options={{
+                    title: "Final step!",
+                    headerShown: true,
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 16
+                    },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    },
+                    headerShadowVisible: true
                 }}
             />
             <Stack.Screen name="Settings" component={StackSettings} />

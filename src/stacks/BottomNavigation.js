@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons, AntDesign } from '@expo/vector-icons';
+import Colors from '../constants/Colors';
 
 //screens
 import Splash from '../screens/Splash';
@@ -81,14 +82,32 @@ const MyTabs = () => {
                         >
                             <Ionicons name='cart' size={24} color={color} />
                         </View>
-                    )
+                    ),
+                    headerShown: true,
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 16
+                    },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    },
+                    headerShadowVisible: true,
                 }}
             />
             <Tab.Screen 
                 name="Settings"
                 component={Settings} 
                 options={{
-                    title: "Settings"
+                    title: "Settings",
+                    headerShown: true,
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 16
+                    },
+                    headerStyle: {
+                        backgroundColor: Colors.secondary,
+                    },
+                    headerShadowVisible: true
                 }}
             />
         </Tab.Navigator>

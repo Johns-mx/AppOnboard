@@ -9,9 +9,12 @@ import RenderSettingsB, { RenderSettingsFlat } from "../../components/RenderSett
 import { dataLogout, APIError, getItemData } from "../../config/Apis/MethodsApi";
 import ListOptions from "../../constants/ListOptions";
 import Colors from "../../constants/Colors";
+import { useUser } from "../../config/UserContext";
 
 
-const UserSettings = ({ navigation, route }) => {
+const UserSettings = ({ navigation }) => {
+    // Accede al dato pasado desde HomeScreen usando route.params
+    const { userData } = useUser();
 
     // DATOS NECESARIOS PARA REALIZAR EL LOGOUT
     const [keyUser, setKeyUser] = useState(String);
@@ -109,7 +112,7 @@ const UserSettings = ({ navigation, route }) => {
                                 size={27}
                                 color={Colors.WHITE.decimo}
                                 style={styles.backBtn}
-                                onPress={() => navigation.push("HomeScreen")}
+                                onPress={() => navigation.push("Dashboard", { screen: "HomeScreen" })}
                             />
                         </View>
                         <View style={{ width: "70%" }}>
@@ -118,14 +121,14 @@ const UserSettings = ({ navigation, route }) => {
                                     textAlign: "right", 
                                     fontWeight: "600", 
                                     color: Colors.WHITE.decimo,
-                                }}>Johanel Perez Sanchez</Text>
+                                }}>{userData.name}</Text>
                             <Text 
                                 style={{
                                     textAlign: "right", 
                                     fontWeight: "300", 
                                     color: Colors.WHITE.decimo,
                                     fontSize: 12,
-                                }}>johanfsk144@gmail.com</Text>
+                                }}>{userData.email}</Text>
                         </View>
                         <View style={{ width: "15%", alignItems: "flex-end", justifyContent: "center" }}>
                             <Image

@@ -8,12 +8,20 @@ import { qYPWLogin } from "../config/Apis/Queries";
 import GradientButton from "../components/GradientButton";
 import RenderCategorias from "../components/RenderCategorias";
 import RenderSlideHome from "../components/RenderSlideHome";
+import RenderSlideBanner from "../components/RenderSlideBanner";
 import { useState } from "react";
 import Colors from "../constants/Colors";
+import { useUser } from "../config/UserContext";
+import RenderProducts from "../components/RenderProducts";
+import RenderListProducts from "../components/RenderListProducts";
 //import { InputFieldGeneral } from "../components/TextInputField"
 
 
 const HomeScreen = ({ navigation }) => {
+
+    // USO DE USERCONTEXT PARA ALMACENAR LOS DATOS DEL USUARIO.
+    const { userData } = useUser();
+
     const [username, setUsername] = useState(String);
     const [password, setPassword] = useState(String);
     
@@ -27,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
                         alignItems: "center",
                         justifyContent: "center",
                     }}
-                    onPress={() => navigation.push("UserSettings")}
+                    onPress={() => navigation.push("UserSettings", { userData })}
                 >
                     {/*<FontAwesome5 name="bell" size={25} color="grey" />*/}
                     <Image source={require("../assets/ic_launcher.png")} style={{ height: 35, width: 35, borderRadius: 17.5, borderWidth: 2, borderColor: Colors.BLUE.septimo, }} />
@@ -71,23 +79,31 @@ const HomeScreen = ({ navigation }) => {
 
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
                 <View style={styles.content}>
-                    <View style={{ marginTop: 15, marginBottom: 10, marginLeft: 20,}}>
+
+                    <View style={{ marginTop: 45, marginBottom: 10, marginLeft: 20,}}>
                         <Text style={{fontSize: 30, fontWeight: "700",}}>Let's Started!</Text>
                     </View>
 
-                    <View style={{ marginHorizontal: 20, marginTop: 10, marginBottom: 15, flexDirection: "row" }}>
+                    <View style={{ marginHorizontal: 20, marginTop: 10, marginBottom: 50, flexDirection: "row" }}>
                         <View style={ styles.searchContainer}>
                             <FontAwesome5 name="search" size={18} color="gray" style={{ marginHorizontal: 20 }} />
                             <TextInput placeholder="Search..." style={styles.input}/>
                         </View>
                     </View>
 
-                    <View style={{ alignSelf: "center" }}></View>
+                    {/* --- SLIDER BANNER 354x100 --- */}
+                    <RenderSlideBanner />
 
+                    <View style={{ alignSelf: "flex-start", marginHorizontal: 20, marginTop: 40, marginBottom: 5 }}>
+                        <Text style={{ fontSize: 10, fontWeight: '600' }}>CATEGORIAS</Text>
+                    </View>
+                    
                     <RenderCategorias style={styles.slideCategory} />
-                    <RenderSlideHome />
-                    <RenderSlideHome />
-                    <RenderSlideHome />
+                    <RenderProducts navigation={navigation} />
+
+                    <Text style={{ marginTop: 25, marginBottom: 5, marginHorizontal: 15, fontSize: 20, fontWeight: "500" }}>Most popular</Text>
+                    {/*<RenderListProducts navigation={navigation} />*/}
+
                 </View>
             </ScrollView>
         </SafeAreaView>

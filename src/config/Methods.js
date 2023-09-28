@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export class SaveDataStorage {
 
     async storeData(key, value) {
-        try {2
+        try {
             await AsyncStorage.setItem('@'+key, value)
         } catch (e) {
           // saving error

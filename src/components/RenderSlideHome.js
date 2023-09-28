@@ -51,16 +51,6 @@ const RenderSlideHome = () => {
   );
 }
 
-/*
-<TouchableOpacity 
-          style={[
-            styles.botonSlides, 
-            { width: width * 0.7, height: width * 0.9 }
-          ]}
-          key={item.id}
->
-*/
-
 
 const styles = StyleSheet.create({
   botonSlides: {
