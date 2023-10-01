@@ -27,7 +27,7 @@ const MyStacks = () => {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Splash" component={Splash} />
             <Stack.Screen name="Onboarding" component={Onboarding} />
-            <Stack.Screen name="Login" component={Login} />
+            {/*<Stack.Screen name="Login" component={Login} />*/}
             <Stack.Screen name="Dashboard" component={MyTabs} />
             <Stack.Screen 
                 name="Details" 
@@ -62,9 +62,9 @@ const MyStacks = () => {
                         fontSize: 16
                     },
                     headerStyle: {
-                        backgroundColor: Colors.secondary,
+                        backgroundColor: Colors.WHITE.segundo, //El color que va es Colors.secundary.
                     },
-                    headerShadowVisible: true
+                    headerShadowVisible: false
                 }}
             />
             <Stack.Screen 

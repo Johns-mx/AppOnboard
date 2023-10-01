@@ -20,12 +20,9 @@ const RenderProducts = ({ navigation }) => {
 	  	<ScrollView
 			horizontal={true}
 			showsHorizontalScrollIndicator={false}
-			//snapToInterval={width * 0.7}
 			pagingEnabled={false}
 			style={{
-				marginTop: 15,
-				marginBottom: 25,
-				//paddingHorizontal: 10 
+				marginVertical: 15,
 			}}
 		>
 			{Products.map((item) => (
@@ -33,7 +30,7 @@ const RenderProducts = ({ navigation }) => {
 					style={[
 						styles.botonSlides,
 						styles.sombra,
-						{ width: 150, height: 270, borderWidth: 0.5, borderRadius: 10, borderColor: Colors.WHITE.cuatro }
+						{ width: 150, minWidth: 150, minHeight: 270, borderWidth: 0.5, borderRadius: 10, borderColor: Colors.WHITE.cuatro, backgroundColor: Colors.WHITE.primero }
 					]}
 					key={item.id}
 					onPress={() => navigation.push("ProductDetail", { product: item })}
@@ -78,10 +75,11 @@ const styles = StyleSheet.create({
 		height: '60%', // El 60% de la altura total
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
-		backgroundColor: Colors.WHITE.segundo
+		//backgroundColor: Colors.WHITE.segundo, 
+		alignSelf: "center",
 	},
 	productContainer: {
-		height: 270,
+		maxHeight: 310,
 		backgroundColor: Colors.WHITE.primero,
 		borderRadius: 10,
 		overflow: 'hidden',
@@ -102,77 +100,3 @@ const styles = StyleSheet.create({
 });
 
 export default RenderProducts;
-
-
-/*
-const RenderProducts = ({ navigation }) => {
-
-	const renderItem = ({ item }) => (
-	  <TouchableOpacity
-		style={styles.botonSlides}
-		onPress={() => navigation.push("ProductDetail", { product: item })}
-	  >
-		<View style={styles.productContainer}>
-		  <Image source={item.img} style={styles.imgSlides} />
-		  <View style={styles.productInfo}>
-			<Text style={styles.productName}>{item.name}</Text>
-			<Text style={styles.productPrice}>${item.price}</Text>
-		  </View>
-		</View>
-	  </TouchableOpacity>
-	);
-  
-	return (
-	  <FlatList
-		data={Products}
-		renderItem={renderItem}
-		keyExtractor={(item) => item.id.toString()}
-		numColumns={2} // Renderizar en dos columnas
-		columnWrapperStyle={styles.columnWrapper} // Espacio entre columnas
-	  />
-	);
-};
-  
-const styles = StyleSheet.create({
-	botonSlides: {
-	  flex: 1, // Para que cada elemento ocupe la mitad del ancho
-	  marginVertical: 10,
-	  overflow: 'hidden',
-	  shadowColor: "#0d2750",
-	  shadowOffset: {
-		width: 0,
-		height: 10,
-	  },
-	  shadowOpacity: 0.25,
-	  shadowRadius: 3.5,
-	},
-	columnWrapper: {
-	  justifyContent: 'space-between', // Espacio entre las dos columnas
-	},
-	imgSlides: {
-	  width: '100%', // Ancho completo de la columna
-	  height: 150, // Altura fija o ajusta según tus necesidades
-	  borderTopLeftRadius: 10,
-	  borderTopRightRadius: 10,
-	},
-	productContainer: {
-	  backgroundColor: Colors.WHITE.primero,
-	  borderRadius: 10,
-	  overflow: 'hidden',
-	  marginHorizontal: 15,
-	},
-	productInfo: {
-	  padding: 10,
-	},
-	productName: {
-	  fontSize: 14,
-	  paddingBottom: 5,
-	},
-	productPrice: {
-	  fontSize: 14,
-	  fontWeight: 'bold',
-	  color: Colors.BLUE.sexto,
-	},
-});
-  
-export default RenderProducts;*/

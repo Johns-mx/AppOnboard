@@ -25,7 +25,7 @@ const Onboarding = ({ navigation }) => {
         if (currentIndex < Slides.length - 1) {
             slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
         } else {
-            navigation.replace('Login')
+            navigation.replace('Dashboard') //La screen que va es 'Login'.
         }
     };
 

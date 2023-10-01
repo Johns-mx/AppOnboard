@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity, StyleSheet, useState } from 'react-native';
-import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { View, ScrollView, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
-
 import { Products } from '../constants/Products';
 
 
@@ -10,17 +9,17 @@ const RenderListProducts = ({ navigation }) => {
     const [fav, setFav] = useState(false);
 
     // Crea un array de íconos de estrellas basado en la cantidad de estrellas
-    const RenderStars = ({product}) => {
+    const RenderStars = (stars) => {
         const starIcons = [];
-        for (let i = 0; i < product.stars; i++) {
+        for (let i = 0; i < stars; i++) {
           starIcons.push(
-            <AntDesign key={i} name="star" size={13} color={Colors.BLUE.tercero} style={{ marginVertical: 8 }} />
+            <AntDesign key={i} name="star" size={12} color={Colors.BLUE.tercero} style={{ marginVertical: 8 }} />
           );
         }
         return (
             <View style={{ flexDirection: 'row' }}>
                 {starIcons}
-                <Text style={{ fontSize: 12, color: Colors.WHITE.noveno, marginLeft: 5, marginVertical: 6 }}>({product.stars})</Text>
+                <Text style={{ fontSize: 12, color: Colors.WHITE.noveno, marginLeft: 5, marginVertical: 6 }}>({stars})</Text>
             </View>
         );
     };
@@ -36,9 +35,9 @@ const RenderListProducts = ({ navigation }) => {
     
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        {Products.map((product) => (
+        {Products.map((product, index) => (
           <TouchableOpacity
-            key={product.id}
+            key={index}
             onPress={() => navigation.push("ProductDetail", { product: product })}
             style={styles.card}
           >
@@ -49,7 +48,7 @@ const RenderListProducts = ({ navigation }) => {
               <Text style={styles.price}>${product.price}</Text>
               {/* Stars */}
               <View style={styles.starsContainer}>
-                {RenderStars(product)}
+                {RenderStars(product.stars)}
               </View>
             </View>
             <TouchableOpacity style={styles.iconContainer}>
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     image: {
       width: 150,
       height: '100%',
-      backgroundColor: Colors.WHITE.tercero,
+      backgroundColor: Colors.WHITE.segundo,
     },
     details: {
       width: '65%',
@@ -89,13 +88,15 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
     },
     name: {
-      fontSize: 16,
-      fontWeight: "500",
+      fontSize: 15,
+      fontWeight: "400",
+      paddingRight: 10,
     },
     description: {
       marginVertical: 5,
       fontSize: 11,
-      fontWeight: "300"
+      fontWeight: "300",
+      color: Colors.WHITE.noveno,
     },
     price: {
       marginBottom: 5,
@@ -116,6 +117,13 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.WHITE.noveno,
       padding: 5,
     },
+    iconFav: {
+      position: 'absolute',
+      top: 5,
+      left: 5,
+      borderRadius: 15,
+      padding: 7,
+    }
 });
 
 export default RenderListProducts;

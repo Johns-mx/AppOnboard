@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, SafeAreaView, StatusBar, ScrollView, Tou
 import Colors from '../constants/Colors';
 import { MaterialCommunityIcons, Ionicons, AntDesign, FontAwesome5, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { FloatingAction } from 'react-native-floating-action';
+import { cartProducts } from '../constants/CartProducts';
 
 
 const { width } = Dimensions.get('window');
@@ -13,7 +14,8 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
     const [quantityCart, setQuantity] = useState(0);
     const [fav, setFav] = useState(false);
-    const [activeAdd, setactiveAdd] = useState(false);
+    const [activeDescriptionAdd, setactiveAdd] = useState(false);
+    const [cartItems, setCartItems] = useState(cartProducts)
 
     const handleIncrement = () => {
         if (quantityCart < product.quantity) {
@@ -28,14 +30,38 @@ const ProductDetailScreen = ({ navigation, route }) => {
     };
 
     const addToCart = () => {
-        if (!activeAdd) { // Optional...
-            console.log("Producto agregado!");
+        if (!activeDescriptionAdd) { // Optional...
+            // Verificar si el producto ya está en el carrito.
+            //const isProductInCart = cartProducts.some((item) => item.id === product.id);
+            const productIndex = cartProducts.findIndex((item) => item.id === product.id);
+
+            if (productIndex !== -1) {
+                // Si el producto ya está en el carrito, actualiza la cantidad seleccionada
+                //const updatedCartProducts = [...cartProducts];
+                //cartProducts[productIndex].selectedQuantity + quantityCart <= product.quantity;
+                //console.log(cartProducts[productIndex])
+                cartProducts[productIndex].selectedQuantity = quantityCart;
+                console.log(cartProducts[productIndex].selectedQuantity, "Producto actualizado en el carrito!");
+
+                //cartProducts.push(updatedCartProducts)
+                //if (isProductInCart) {
+                //product.selectedQuantity= quantityCart;
+                //const updatedCart = cartProducts.map((item) =>
+                    //item.id === product.id ? { ...item, selectedQuantity: quantityCart } : item
+                //);
+                //cartProducts[product.id].selectedQuantity = quantityCart;
+            } else {
+                // Si el producto no está en el carrito, agrégalo con la cantidad seleccionada
+                const selectedProduct = { ...product, selectedQuantity: quantityCart };
+                cartProducts.push(selectedProduct)
+                console.log("Producto agregado!");
+            }
         }
-        setQuantity(0)
-        setactiveAdd(!activeAdd)
-        //navigation.push('Checkout', { product: product })
-        // Aquí puedes agregar la lógica para agregar el producto al carrito
-        // Puedes acceder a la cantidad seleccionada a través de la variable "quantity"
+        setTimeout(() => {
+            setactiveAdd(activeDescriptionAdd);
+        }, 1000);
+        setQuantity(0);
+        setactiveAdd(!activeDescriptionAdd);
     };
 
     const handleBtnFavorite = () => {
@@ -52,13 +78,13 @@ const ProductDetailScreen = ({ navigation, route }) => {
         const starIcons = [];
         for (let i = 0; i < product.stars; i++) {
           starIcons.push(
-            <AntDesign key={i} name="star" size={15} color={Colors.BLUE.tercero} style={{ marginBottom: 8 }} />
+            <AntDesign key={i} name="star" size={12} color={Colors.BLUE.tercero} style={{ marginBottom: 8 }} />
           );
         }
         return (
             <View style={{ flexDirection: 'row' }}>
                 {starIcons}
-                <Text style={{ fontSize: 12, color: Colors.WHITE.noveno, marginLeft: 5, }}>({product.stars})</Text>
+                <Text style={{ fontSize: 11, color: Colors.WHITE.noveno, marginLeft: 5, }}>({product.stars})</Text>
             </View>
         );
     };
@@ -86,12 +112,22 @@ const ProductDetailScreen = ({ navigation, route }) => {
                                     />
                                 ))}
                             </ScrollView>
+
+                            <View style={styles.iconsColumn}>
+                                <TouchableOpacity style={styles.buttonSpecials} activeOpacity={0.5}>
+                                    <FontAwesome5 name="share" size={15} color={Colors.WHITE.noveno} />
+                                </TouchableOpacity>
+                                
+                                {/*<TouchableOpacity style={styles.buttonSpecials}>
+                                    <FontAwesome5 name="heart" size={14} color={Colors.WHITE.primero} />
+                                </TouchableOpacity>*/}
+                            </View>
                         </View>
                     </View>
 
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: "100%", marginTop: 0, marginBottom: 15, padding: 10 }}>
                         {product.attributes ? (
-                            product.attributes.map ((item, index) => (
+                            product.attributes.map((item, index) => (
                                 <View key={index} style={{ margin: 5, padding: 13, backgroundColor: Colors.general, borderRadius: 13 }}>
                                     {item ? (
                                         <FontAwesome5 name={`${item}`} size={28} color={Colors.BLUE.doceavo} />
@@ -102,7 +138,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
                             ))
                         ) : (
                             <View>
-                                <Text style={{ marginTop: 10, color: Colors.BLUE.sexto, fontStyle: "italic" }}>Este producto no tiene iconos de categorias</Text>
+                                <Text style={{ marginTop: 10, color: Colors.BLUE.sexto, fontWeight: "400", fontSize: 13 }}>*Este producto no tiene iconos de categorias*</Text>
                             </View>
                         )}
                     </View>
@@ -118,7 +154,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
                         <View>
                             {RenderStars()}
-                            <Text style={{ fontSize: 11, color: Colors.WHITE.septimo, alignSelf: "flex-end" }}>${product.price}</Text>
+                            <Text style={{ alignSelf: "flex-end", fontSize: 14, color: Colors.WHITE.noveno, fontWeight: "400", }}>Quantity: {product.quantity}</Text>
                         </View>
 
                         {/*
@@ -130,10 +166,10 @@ const ProductDetailScreen = ({ navigation, route }) => {
                         <TouchableOpacity style={styles.buttonSpecials}>
                         <FontAwesome5 name="heart" size={14} color={Colors.WHITE.primero} />
                         </TouchableOpacity>
+                        <Text style={{ alignSelf: "flex-end", fontSize: 12, color: Colors.WHITE.decimo, fontWeight: "300", marginTop: 15 }}>Disponible(s): {product.quantity}</Text>
                     </View>*/}
                     </View>
 
-                    <Text style={{ alignSelf: "flex-end", fontSize: 12, color: Colors.WHITE.decimo, fontWeight: "300", marginTop: 15 }}>Disponible(s): {product.quantity}</Text>
 
                     <View style={{ justifyContent: "space-between", flexDirection: "row",  marginBottom: 30, marginVertical: 25 }}>
                         <Text style={styles.productPrice}>${product.price}</Text>
@@ -158,8 +194,27 @@ const ProductDetailScreen = ({ navigation, route }) => {
                             console.log(`Botón presionado: ${name}`);
                         }}
                     />*/}
+                    
+                    {product.variety ? (
+                        <View>
+                            <Text style={{ fontWeight: "500" }}>Colors</Text>
+                            <View style={{ width: "70%", flexDirection: "row", alignItems: "center", marginVertical: 12 }}>
+                                <ScrollView
+                                    horizontal={true}
+                                    showsHorizontalScrollIndicator={false}
+                                    pagingEnabled={false}
+                                >
+                                    {product.variety.map((item, index) => (
+                                        <TouchableOpacity key={index} style={{ backgroundColor: item.color, paddingVertical:5, marginHorizontal: 5, borderRadius: 25, width: 22, height: 22, }}></TouchableOpacity>
+                                    ))}
+                                </ScrollView>
+                            </View>
+                        </View>
+                    ) : (
+                        <Text style={{ fontWeight: "300", fontSize: 13 }}>*Este articulo no tiene variaciones por colores.*</Text>
+                    )}
 
-                    <Text style={{fontSize: 17, fontWeight: "500", marginVertical: 12, borderColor: Colors.WHITE.quinto, borderTopWidth: 0.8, paddingTop: 8 }}>Description</Text>
+                    <Text style={{ fontSize: 17, fontWeight: "500", marginBottom: 12, marginTop: 20, borderColor: Colors.WHITE.quinto, borderTopWidth: 0.8, paddingTop: 8 }}>Description</Text>
                     <Text style={styles.productDescription}>{product.shortDescription}</Text>
                     <Text style={styles.productDescription}>{product.fullDescription}</Text>
                     
@@ -182,13 +237,16 @@ const ProductDetailScreen = ({ navigation, route }) => {
                             borderColor: Colors.general,
                         }}
                         activeOpacity={0.6}
-                        onPress={addToCart}
+                        onPress={() => addToCart()}
                         disabled={quantityCart === 0}
                     >
-                        {activeAdd ? (
-                            <MaterialIcons name="shopping-cart" size={24} color={Colors.general} />
+                        {activeDescriptionAdd ? (
+                            <View style={{ flexDirection: 'row', gap: 15 }}>
+                                <MaterialIcons name="shopping-cart" size={24} color={Colors.general} />
+                                <Text style={{ fontWeight: "500", color: Colors.general, fontSize: 16 }}>Producto agregado!</Text>
+                            </View>
                         ) : (
-                            <Text style={{ color: 'white', fontWeight: "600" }}>ADD TO CART   |   x{quantityCart}</Text>
+                            <Text style={{ color: 'white', fontWeight: "600" }}>ADD TO CART   |   ${product.price*quantityCart} (x{quantityCart})</Text>
                         )}
                     </TouchableOpacity>
                 ) : (
@@ -254,16 +312,26 @@ const styles = StyleSheet.create({
         flex: 0.75,
     },
     iconsColumn: {
-        flexDirection: 'row',
+        flexDirection: "column",
         flex: 0.25, // 25% de ancho
-        justifyContent: "flex-end",
+        //justifyContent: "flex-end",
         gap: 10,
+        position: "absolute",
+        alignSelf: "flex-end",
+        top: 10,
+        right: 10,
+        borderColor: Colors.WHITE.cuatro,
+        borderWidth: 0.5,
+        borderRadius: 25,
+        padding: 3,
+        backgroundColor: Colors.secondary,
     },
     buttonSpecials: {
         alignItems: "center",
-        padding: 6,
+        padding: 8,
         borderRadius: 25,
-        backgroundColor: Colors.BLUE.tercero,
+        //backgroundColor: Colors.BLUE.tercero,
+        backgroundColor: Colors.general,
     },
     productName: {
         fontSize: 20,

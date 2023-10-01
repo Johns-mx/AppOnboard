@@ -102,7 +102,7 @@ const HomeScreen = ({ navigation }) => {
                     <RenderProducts navigation={navigation} />
 
                     <Text style={{ marginTop: 25, marginBottom: 5, marginHorizontal: 15, fontSize: 20, fontWeight: "500" }}>Most popular</Text>
-                    {/*<RenderListProducts navigation={navigation} />*/}
+                    <RenderListProducts navigation={navigation} />
 
                 </View>
             </ScrollView>
